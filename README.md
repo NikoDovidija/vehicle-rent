@@ -1,6 +1,6 @@
 # vue-vehicle-rent
 
-> My cat&#39;s pajamas Nuxt.js project
+> A simple Nuxt.js webapp that demonstrates simple form search and displays results
 
 ## Build Setup
 
