@@ -1,15 +1,19 @@
 <template>
-    <header>
-      <img src="~/assets/images/main_logo.png">
-    </header>
+  <header class="">
+    <AppBar/>
+  </header>
 </template>
 
 <script>
+import AppBar from "./AppBar";
 export default {
-
+    components:{
+      AppBar
+    }
 }
 </script>
+<style lang="scss">
 
-<style>
+@import "~/assets/scss/header/_header.scss";
 
 </style>

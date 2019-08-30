@@ -1,10 +1,12 @@
-
-
 export default {
   mode: 'universal',
   /*
   ** Headers of the page
   */
+  server: {
+    port: 8000, // default: 3000
+    host: '0.0.0.0', // default: localhost
+  },
   head: {
     titleTemplate: '%s - ' + process.env.npm_package_name,
     title: process.env.npm_package_name || '',
@@ -25,11 +27,16 @@ export default {
   ** Global CSS
   */
   css: [
+    '@/assets/scss/app.scss'
   ],
   /*
   ** Plugins to load before mounting the App
   */
+  vuetify: {
+    customVariables: ['~/assets/scss/variables/variables.scss']
+  },
   plugins: [
+      '~/plugins/axios'
   ],
   /*
   ** Nuxt.js dev-modules
@@ -41,18 +48,9 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
+    '@nuxtjs/axios',
   ],
   /*
-  ** vuetify module configuration
-  ** https://github.com/nuxt-community/vuetify-module
-  */
-  vuetify: {
-    customVariables: ['~/assets/variables.scss'],
-    theme: {
-      themes: {
-      }
-    }
-  },
   /*
   ** Build configuration
   */

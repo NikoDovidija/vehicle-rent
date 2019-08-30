@@ -1,20 +1,20 @@
 <template>
   <v-app>
-    <header/>
+    <Header/>
     <v-content>
-      <v-container>
         <nuxt />
-      </v-container>
     </v-content>
-    <v-footer>
-      <span>&copy; 2019</span>
-    </v-footer>
+    <Footer/>
   </v-app>
 </template>
 
 <script>
-import { header } from "../components/Global/Header";
-
+import Header from "../components/Global/Header";
+import Footer from "../components/Global/Footer";
 export default {
+   components: {
+    Header,
+    Footer,
+  }
 }
 </script>

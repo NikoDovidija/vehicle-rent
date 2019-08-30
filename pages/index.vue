@@ -1,21 +1,27 @@
 <template>
-  <v-layout
-    column
-    justify-center
-    align-center
-  >
-    <v-flex
-      xs12
-      sm8
-      md6
-    >
-    </v-flex>
-  </v-layout>
+<div>
+<v-container>
+  <!-- {{data}} -->
+      <v-row no-gutters class="mt-12">
+        <v-col xl="6" md="6" class="col-12 mt-12" >
+          <IndexPageComponent></IndexPageComponent>
+        </v-col>
+           <v-col xl="6" md="6" class="col-12 mt-12">
+            <IndexPageTestiomonialComponent></IndexPageTestiomonialComponent>
+        </v-col>
+      </v-row>
+</v-container>
+</div>
 </template>
 
 <script>
-
+import IndexPageComponent from "../components/Index/IndexPageComponent";
+import IndexPageTestiomonialComponent from "../components/Index/IndexPageTestimonialComponent";
 export default {
+    components:{
+      IndexPageComponent,
+      IndexPageTestiomonialComponent
+    },
     data () {
     return {
       title: 'Vehicle rent'
@@ -33,6 +39,12 @@ export default {
         `}
       ]
     }
-  }
+  },
+  async asyncData({$axios}) {
+    let fetchedObject = await $axios.$get(`https://api.vehicle-rent.com/get-residence-countries?format=json`);
+    return { data: fetchedObject.response.data.residenceCountries }
+  },
 }
 </script>
+<style>
+</style>
