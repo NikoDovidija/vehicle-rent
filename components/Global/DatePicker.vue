@@ -6,19 +6,19 @@
         transition="scale-transition">
         <template v-slot:activator="{ on }">
           <v-text-field
-            :value="selected"
+            :value="slt"
+            :label="labelSettings"
             readonly
+            flat
+            background-color="white"
             outlined
-            :hint="vuetifyFriendlyDate"
             rounded
-            solo
             v-on="on"
           ></v-text-field>
         </template>
         <v-date-picker 
-        v-model="selected" 
+        v-model="slt" 
         no-title 
-        scrollable
         :min="vuetifyFriendlyDate">
         </v-date-picker>
       </v-menu>
@@ -33,6 +33,7 @@ export default {
             menu: false,
             todayDate: moment(),
             selected: null,
+            sl:true,
             selectedDate:'',
         }
     },
@@ -42,18 +43,24 @@ export default {
             isSingle: Boolean
          }
     },
-    mounted(){
-      this.selected = this.dateRange.start ? this.getStartDate
-          : this.getEndDate;
-    },
     watch:{
-      // selected: function(value){
-      //   this.$store.dispatch('setDate',{start:this.dateRange.start,data:value});
-      // }
+      selected: function(value){
+        //this.$store.dispatch('checkIfDateIsValid',{start:this.dateRange.start,data:value});
+        this.$store.dispatch('setDate',{start:this.dateRange.start,data:value});
+      }
     },
     computed:{
+      slt:{
+        get() {
+        return this.dateRange.start ? this.getStartDate
+          : this.getEndDate;
+        },
+        set(value){
+          this.selected = value;
+        }
+      },
       vuetifyFriendlyDate () {
-        return moment().format('YYYY-MM-DD');
+        return this.getStartDate;
       },
       ...mapGetters([
       'countryList',
@@ -61,6 +68,9 @@ export default {
       'getStartDate',
       'getEndDate'
     ]),    
+    labelSettings(){
+      return this.dateRange.start ? 'Start date' : 'End date';
+    },
     },
 }
 </script>

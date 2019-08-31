@@ -1,15 +1,13 @@
 <template>
-<div class="d-flex align-center justify-end">
-  <div>
-    <p>Country</p>
-  </div>
+<div class="d-flex align-center col-12 col-md-6">
   <div>
     <v-select
-          label="Slovenia"
+          label="Country"
           v-model="model"
           :items="countryList"
+          flat
           outlined
-          solo
+          background-color="white"
           rounded
     ></v-select>
   </div>

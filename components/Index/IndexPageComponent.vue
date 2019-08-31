@@ -3,33 +3,18 @@
     <h2>Car rentals made simple</h2>
       <v-form
       ref="form"
+      v-on:submit="submited"
       v-model="valid">
-        <v-row no-gutters class="mt-12">
-              <v-row no-gutters>
-                <IndexPageLocationAutocomplete/>
-              </v-row>
-              <v-row class="mt-3 d-flex">
-                  <v-col class="py-3">
-                    <DateTimeInputs :dateRange ="{ isSingle:false,start:true }"/>
-                  </v-col>
-                  <v-col class="py-3">
-                    <DateTimeInputs :dateRange ="{ isSingle:false,start:false }"/>
-                  </v-col>
-              </v-row>
-              <v-row no-gutters class="mt-n10">
-                  <v-col >
-                    <UserAgeSwitch/>
-                  </v-col>
-                  <v-col >
-                    <CountrySelectorInput/>
-                  </v-col>
-              </v-row>
-          </v-row>
-          <v-row no-gutters class="vr-submit-section">
-              <v-btn type="submit" block large depressed color="secondary"
-                :disabled="valid"
-              >Get my car</v-btn>
-          </v-row>
+        <IndexPageLocationAutocomplete/>
+        <DateTimeInputs :dateRange ="{ isSingle:false,start:true }"/>
+        <DateTimeInputs :dateRange ="{ isSingle:false,start:false }"/>
+        <UserAgeSwitch/>
+        <CountrySelectorInput/>
+        <v-row class="vr-submit-section">
+          <v-btn type="submit" block large depressed color="secondary"
+            :disabled="!valid"
+            >Get my car</v-btn>
+        </v-row>
       </v-form>
   </div>
 </template>
@@ -43,8 +28,15 @@ import CountrySelectorInput from "../Global/CountrySelectorInput";
 export default {
     data: function () {
     return {
-      valid: false
+      valid: true
     } 
+  },
+  methods:{
+    submited(e){
+      e.preventDefault();
+      console.log('aaa');
+      this.$router.push('/results');
+    }
   },
   components:{
     IndexPageLocationAutocomplete,

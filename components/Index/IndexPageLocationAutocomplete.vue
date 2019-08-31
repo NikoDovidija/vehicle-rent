@@ -1,15 +1,20 @@
 <template>
+<v-row>
+    <v-col>
         <v-autocomplete
         v-model="model"
         :search-input.sync="search"
         cache-items
         hide-no-data
         hide-details
+        flat
         solo        
         outlined
         rounded
         label="Location"
-        ></v-autocomplete>
+        ></v-autocomplete>   
+    </v-col>
+</v-row>
 </template>
 
 <script>

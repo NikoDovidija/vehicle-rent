@@ -1,5 +1,5 @@
 <template>
-     <v-row>
+    <v-row>
     <v-col>
       <DatePicker :dateRange="dateRange"/>
     </v-col>
@@ -7,8 +7,10 @@
          <v-select
           v-model="selectedValue"
           :items="items"
+          flat
+          background-color="white"
+          :label="labelSettings"
           outlined
-          solo
           rounded
         ></v-select>
       </v-col>
@@ -32,18 +34,30 @@ export default {
   data() {
     return {
       items:selectValues,
-      selectedValue:'',
+      selected:null
     }
   },
-  mounted(){
-    this.selectedValue = this.dateRange.start ? this.getStartTime : 
-    this.getEndTime;
-  },
   computed:{
-        ...mapGetters([
+    selectedValue:{
+      get() {
+        return this.dateRange.start ? this.getStartTime : this.getEndTime;
+      },
+      set(value){
+        this.selected = value;
+      }
+    },
+    labelSettings(){
+      return this.dateRange.start ? 'Start time' : 'End time';
+    },
+    ...mapGetters([
       'getStartTime',
       'getEndTime'
     ]),    
+  },
+  watch:{ 
+    selected: function(value){
+      this.$store.dispatch('setTime',{start:this.dateRange.start,data:value});
+    }
   }
 }
 </script>

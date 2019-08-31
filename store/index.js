@@ -6,11 +6,11 @@ export const state = () => ({
     selectedStartDate: moment().add(4, 'days').format("YYYY-MM-DD"),
     selectedEndDate: moment().add(11, 'days').format("YYYY-MM-DD"),
 
-    selectedStartTime: hoursArray.selectValues[15],
-    selectedEndTime: hoursArray.selectValues[18],
+    selectedStartTime: hoursArray.selectValues[30],
+    selectedEndTime: hoursArray.selectValues[35],
 
     locationSearchValue: '',
-    driverAge:null,
+    driverAge:30,
     originCountry:null,
 })
 
@@ -30,8 +30,11 @@ export const mutations = {
     SET_START_TIME(state, data) {
         state.selectedStartTime = data;
     },
-    SET_START_TIME(state, data) {
-        state.selectedEndime = data;
+    SET_END_TIME(state, data) {
+        state.selectedEndTime = data;
+    },
+    SET_AGE(state, data) {
+        state.driverAge = data;
     }
 }
 export const actions = {
@@ -42,25 +45,35 @@ export const actions = {
         commit('SET_COUNTRIES', extractedObjects);
 
         //Initial country 
-        commit('SET_SELECTED_COUNTRY', this.state.countries[0]);
+        
+        const initialCountry = this.state.countries.filter(count => count === 'Slovenia')[0];
+        const existingValueCountry = initialCountry ? initialCountry : 'Slovenia'
+        commit('SET_SELECTED_COUNTRY', existingValueCountry);
 
         //Initial date 
 
 
     },
-    async setSelectedCountry({ commit }, payload) {
+    setSelectedCountry({ commit }, payload) {
         commit('SET_SELECTED_COUNTRY', payload);
     },
     
-    async setDate({ commit },payload) {
+    setDate({ commit },payload) {
         payload.start ? commit('SET_START_DATE', payload.data) : 
             commit('SET_END_DATE', payload.data)
     },
 
-    async setTime({ commit }, payload) {
+    setTime({ commit }, payload) {
         payload.start ? commit('SET_START_TIME', payload.data) :
             commit('SET_END_TIME', payload.data)
     },
+
+    async checkIfDateIsValid(payload){
+        if (!payload.start){
+            const evaluation = moment(payload.data).isAfter(this.state.selectedStartDate);
+            console.log(evaluation);
+        }
+    }
 }
 
 export const getters = {
@@ -81,5 +94,8 @@ export const getters = {
     },
     getEndTime(state) {
         return state.selectedEndTime;
+    },
+    getAge(state) {
+        return state.driverAge;
     },
 }
