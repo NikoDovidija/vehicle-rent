@@ -1,5 +1,7 @@
 const moment = require('moment');
 const hoursArray = require('../constants/constants');
+require('url-search-params-polyfill');
+
 export const state = () => ({
     countries: [],
 
@@ -9,14 +11,20 @@ export const state = () => ({
     selectedStartTime: hoursArray.selectValues[30],
     selectedEndTime: hoursArray.selectValues[35],
 
-    locationSearchValue: '',
+    pickupAndDropoffId: null,
     driverAge:30,
     originCountry:null,
 })
 
 export const mutations = {
     SET_COUNTRIES(state, data) {
-        state.countries = data.map((data) => data.name);
+        const countriesObjects= data.map((data) => {
+            return {
+            text: data.name,
+            value: data.id
+            }
+        });
+        state.countries = countriesObjects;
     },
     SET_SELECTED_COUNTRY(state, data) {
         state.originCountry = data;
@@ -35,18 +43,21 @@ export const mutations = {
     },
     SET_AGE(state, data) {
         state.driverAge = data;
+    },
+    SET_LOCATION_IDS(state, data) {
+        state.pickupAndDropoffId = data;
     }
 }
 export const actions = {
     async nuxtServerInit({ commit }) {
-        const fetchedObject  = await this.$axios.$get(`https://api.vehicle-rent.com/get-residence-countries?format=json`);
+        const fetchedObject  = await this.$axios.$get(`get-residence-countries?format=json`);
         const extractedObjects = fetchedObject.response.data.residenceCountries;
 
         commit('SET_COUNTRIES', extractedObjects);
 
         //Initial country 
         
-        const initialCountry = this.state.countries.filter(count => count === 'Slovenia')[0];
+        const initialCountry = this.state.countries.filter(count => count.value === 'SI')[0].value;
         const existingValueCountry = initialCountry ? initialCountry : 'Slovenia'
         commit('SET_SELECTED_COUNTRY', existingValueCountry);
 
@@ -68,11 +79,28 @@ export const actions = {
             commit('SET_END_TIME', payload.data)
     },
 
-    async checkIfDateIsValid(payload){
+    checkIfDateIsValid(payload){
         if (!payload.start){
             const evaluation = moment(payload.data).isAfter(this.state.selectedStartDate);
             console.log(evaluation);
         }
+    },
+
+    setAge({ commit },payload) {
+        commit('SET_AGE', payload);
+    },
+
+    setPickupAndDropOffLocationId({ commit }, payload){
+        commit('SET_LOCATION_IDS',payload);
+    },
+
+    convertObjectsToUrlStringPair(values){
+        const urlstring = "?"
+        return values.map((arr)=>{
+            return Object.keys(arr.sizes).reduce((list,x)=>{
+                console.log(x);
+            });
+        });
     }
 }
 
@@ -98,4 +126,17 @@ export const getters = {
     getAge(state) {
         return state.driverAge;
     },
+    getUrlString(state){
+        const constructedURl = new URLSearchParams([
+            ["PickUpLocationId", state.pickupAndDropoffId],
+            ["DropOffLocationId", state.pickupAndDropoffId],
+            ["PickTime", state.selectedStartDate + "T" + state.selectedStartTime + ":00"],
+            ["DropTime", state.selectedEndDate + "T" + state.selectedEndTime + ":00"],
+            ["DrvCountry", state.originCountry],
+            ["DrvAge", state.driverAge],
+            ["Currency", "EUR"],
+        ]);
+        return constructedURl.toString();
+    }
 }
+

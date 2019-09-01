@@ -1,22 +1,12 @@
 FROM node:latest
 
-# install simple http server for serving static content
-RUN npm install -g http-server
+ENV APP_ROOT /src
 
-# make the 'app' folder the current working directory
-WORKDIR /app
+RUN mkdir ${APP_ROOT}
+WORKDIR ${APP_ROOT}
+ADD . ${APP_ROOT}
 
-# copy both 'package.json' and 'package-lock.json' (if available)
-COPY package*.json ./
-
-# install project dependencies
 RUN npm install
-
-# copy project files and folders to the current working directory (i.e. 'app' folder)
-COPY . .
-
-# build app for production with minification
 RUN npm run build
 
-EXPOSE 8080
-CMD [ "http-server", "dist" ]
+ENV HOST 0.0.0.0

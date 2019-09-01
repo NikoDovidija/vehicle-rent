@@ -3,16 +3,17 @@
     <h2>Car rentals made simple</h2>
       <v-form
       ref="form"
-      v-on:submit="submited"
-      v-model="valid">
-        <IndexPageLocationAutocomplete/>
+      v-on:submit="submited">
+        <IndexPageLocationAutocomplete @triggerFormEvaluation="triggerFormEvaluation"/>
         <DateTimeInputs :dateRange ="{ isSingle:false,start:true }"/>
         <DateTimeInputs :dateRange ="{ isSingle:false,start:false }"/>
-        <UserAgeSwitch/>
-        <CountrySelectorInput/>
+        <v-row>
+          <UserAgeSwitch/>
+          <CountrySelectorInput/>
+        </v-row>
         <v-row class="vr-submit-section">
           <v-btn type="submit" block large depressed color="secondary"
-            :disabled="!valid"
+            :disabled="!disableSubmit"
             >Get my car</v-btn>
         </v-row>
       </v-form>
@@ -24,25 +25,44 @@ import IndexPageLocationAutocomplete from "./IndexPageLocationAutocomplete";
 import DateTimeInputs from "../Global/DateTimeInputs";
 import UserAgeSwitch from "../Global/UserAgeSwitch";
 import CountrySelectorInput from "../Global/CountrySelectorInput";
-
+import { mapGetters } from 'vuex'
 export default {
     data: function () {
     return {
-      valid: true
+      disableSubmit: false
     } 
   },
   methods:{
     submited(e){
       e.preventDefault();
-      console.log('aaa');
-      this.$router.push('/results');
-    }
+      const urlParameters = `?${this.getUrlString()}`;
+      this.$router.push(`/results${urlParameters}`);
+    },
+    triggerFormEvaluation(value){
+      value ? this.disableSubmit = true: this.disableSubmit = false;
+    },
+    ...mapGetters([
+      'getUrlString',
+    ]),    
   },
   components:{
     IndexPageLocationAutocomplete,
     DateTimeInputs,
     UserAgeSwitch,
     CountrySelectorInput
+  },
+  mounted(){
+    // if(this.$store.getters('getPickupAndDropoffId')) console.log('obstaja');
+  },
+  computed:{
+    valid:{
+      get(){
+        return false;
+      },
+      set(val){
+        this.validStatus = val;
+      }
+    }
   }
 }
 </script>

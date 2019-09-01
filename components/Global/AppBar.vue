@@ -1,7 +1,9 @@
 <template>
       <v-container class="d-flex vr-header-holder justify-space-between" >
         <div class="flex-column">
-          <img src="~/assets/images/main_logo.png">
+         <nuxt-link to="/">
+            <img src="~/assets/images/main_logo.png">
+          </nuxt-link>
         </div>
         <div class="flex-column float-xl-right align-self-center d-flex d-sm-none">
           <LanguageCurrencyMenu/>

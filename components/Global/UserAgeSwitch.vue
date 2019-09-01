@@ -1,5 +1,5 @@
 <template>
-    <div class="d-inline-flex align-center col-12 col-md-6">
+    <v-col>
         <div class="mb-2">
             <v-switch inset v-model="switchMe">
                 <template v-slot:label input-value="true">
@@ -18,7 +18,7 @@
                 rounded
             ></v-select>
         </div>
-    </div>
+    </v-col>
 
 </template>
 
@@ -53,7 +53,12 @@ computed:{
 
     watch:{
          age(value){
-             console.log(value);
+            this.$store.dispatch('setAge',value);
+         },
+         switchMe(value){
+             if(value){
+             this.$store.dispatch('setAge',30);
+             }
          }
     }
 }

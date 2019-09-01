@@ -50,6 +50,10 @@ export default {
   modules: [
     '@nuxtjs/axios',
   ],
+
+  axios:{
+    baseURL:"https://api.vehicle-rent.com"
+  },
   /*
   /*
   ** Build configuration
