@@ -1,5 +1,6 @@
 const moment = require('moment');
 const hoursArray = require('../constants/constants');
+// const fake_search_car_results = require('../constants/api_sample.json');
 require('url-search-params-polyfill');
 
 export const state = () => ({
@@ -14,6 +15,8 @@ export const state = () => ({
     pickupAndDropoffId: null,
     driverAge:30,
     originCountry:null,
+
+    carSearchResults:[]
 })
 
 export const mutations = {
@@ -46,23 +49,25 @@ export const mutations = {
     },
     SET_LOCATION_IDS(state, data) {
         state.pickupAndDropoffId = data;
+    },
+    SET_CAR_RESULTS(state, data) {
+        state.carSearchResults = data;
     }
 }
 export const actions = {
     async nuxtServerInit({ commit }) {
+
+         //Fetch and set countries from api
         const fetchedObject  = await this.$axios.$get(`get-residence-countries?format=json`);
         const extractedObjects = fetchedObject.response.data.residenceCountries;
-
         commit('SET_COUNTRIES', extractedObjects);
 
-        //Initial country 
-        
+        //Select and set Initial country 
         const initialCountry = this.state.countries.filter(count => count.value === 'SI')[0].value;
         const existingValueCountry = initialCountry ? initialCountry : 'Slovenia'
         commit('SET_SELECTED_COUNTRY', existingValueCountry);
 
-        //Initial date 
-
+        // commit('SET_CAR_RESULTS', fake_search_car_results);
 
     },
     setSelectedCountry({ commit }, payload) {
@@ -94,14 +99,10 @@ export const actions = {
         commit('SET_LOCATION_IDS',payload);
     },
 
-    convertObjectsToUrlStringPair(values){
-        const urlstring = "?"
-        return values.map((arr)=>{
-            return Object.keys(arr.sizes).reduce((list,x)=>{
-                console.log(x);
-            });
-        });
-    }
+    async fetchCarResults({ commit }, payload){
+        // await this.$axios.$get(`get-residence-countries?format=json`);
+        commit('SET_CAR_RESULTS', payload);
+    }   
 }
 
 export const getters = {
@@ -137,6 +138,6 @@ export const getters = {
             ["Currency", "EUR"],
         ]);
         return constructedURl.toString();
-    }
+    },
 }
 

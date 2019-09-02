@@ -1,6 +1,6 @@
 <template>
 <div class="outer">
-    <img src="~assets/images/carim.png">
+    <img class="d-none d-md-flex d-lg-flex" src="~assets/images/carim.png">
 </div>
 </template>
 

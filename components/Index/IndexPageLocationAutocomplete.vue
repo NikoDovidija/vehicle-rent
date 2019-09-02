@@ -63,6 +63,7 @@ export default {
                         return rObj;
                 })
                 this.isLoading = false;
+                if(this.items.length<1) this.empty = false;
                 this.previousValueLength = val.length;
             } else{
                 this.empty = false;

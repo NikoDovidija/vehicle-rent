@@ -1,4 +1,4 @@
-export const selectValues =  [
+export const selectValues = [
     "00:15",
     "00:30",
     "00:45",
@@ -7,7 +7,7 @@ export const selectValues =  [
     "01:30",
     "01:45",
     "02:00",
-    "02:15", 
+    "02:15",
     "02:30",
     "02:45",
     "03:00",
@@ -94,8 +94,4 @@ export const selectValues =  [
     "23:15",
     "23:30",
     "23:45",
-]
-
-
-
-
+];
