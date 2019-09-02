@@ -1,6 +1,6 @@
 const moment = require('moment');
 const hoursArray = require('../constants/constants');
-// const fake_search_car_results = require('../constants/api_sample.json');
+
 require('url-search-params-polyfill');
 
 export const state = () => ({
@@ -67,8 +67,6 @@ export const actions = {
         const existingValueCountry = initialCountry ? initialCountry : 'Slovenia'
         commit('SET_SELECTED_COUNTRY', existingValueCountry);
 
-        // commit('SET_CAR_RESULTS', fake_search_car_results);
-
     },
     setSelectedCountry({ commit }, payload) {
         commit('SET_SELECTED_COUNTRY', payload);
@@ -100,7 +98,6 @@ export const actions = {
     },
 
     async fetchCarResults({ commit }, payload){
-        // await this.$axios.$get(`get-residence-countries?format=json`);
         commit('SET_CAR_RESULTS', payload);
     }   
 }

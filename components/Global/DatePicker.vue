@@ -26,7 +26,7 @@
 
 <script>
 import moment from 'moment';
-import { mapGetters,mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 export default {
     data(){
         return {
@@ -45,7 +45,6 @@ export default {
     },
     watch:{
       selected: function(value){
-        //this.$store.dispatch('checkIfDateIsValid',{start:this.dateRange.start,data:value});
         this.$store.dispatch('setDate',{start:this.dateRange.start,data:value});
       }
     },

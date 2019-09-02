@@ -7,7 +7,7 @@
            :absolute="absolute">
             <v-progress-circular indeterminate size="64"></v-progress-circular>
             </v-overlay>
-        </v-col >
+            </v-col >
            <v-col v-if="!overlay"  xl="10" md="8" class="col-12">
              <ResultsListComponent v-bind:items="filteredArray" />
         </v-col>
@@ -17,9 +17,7 @@
 </template>
 
 <script>
-import  ResultsFilterComponent  from "../components/Results/ResultsFilterComponent";
 import ResultsListComponent from "../components/Results/ResultsListComponent";
-import { mapGetters} from 'vuex';
 import 'url-search-params-polyfill';
 export default {
   data(){
@@ -43,7 +41,6 @@ export default {
     }
   },
   components: {
-    ResultsFilterComponent ,
     ResultsListComponent
   },
   methods:{
@@ -66,50 +63,8 @@ export default {
       });
       this.results = await requestResults.response.data.offers.offers;
       this.filteredResults = [...this.results];
-      // this.generateFilters();
       this.overlay = false;
     },
-    // generateFilters(){
-    //     this.sortsArray.forEach(function (item){
-    //         switch(item.type){
-    //           case "Pickup location":
-    //             this.pickupLocationsValues();
-    //             break;
-    //           case "Vendors":
-    //             this.vendorValues();
-    //             break;
-    //         }
-    //     },this)
-    // },
-
-    // pickupLocationsValues(){
-    //   this.sortsArray[0].values = [... new Set(this.results.map(x=>x.pickupBranch.location.type.name))];
-    // },
-    // vendorValues(){
-    //   this.sortsArray[1].values = [... new Set(this.results.map(x=>x.pickupBranch.vendor.name))];
-    // },
-    triggerFilters(vals){
-      const keyName = Object.keys(vals)[0]; // add for loop
-      if(this.currentlyAppliedFilters.some(val=>val.type===keyName)){
-          const itemIndex = this.currentlyAppliedFilters.findIndex(x => x.type ===keyName);
-          if(vals[keyName] && vals[keyName].length<1){
-              this.currentlyAppliedFilters.splice(itemIndex,1);
-                      console.log('should be removed');
-          }
-          else{
-            this.currentlyAppliedFilters.splice(itemIndex, 1, vals[keyName]);
-            // this.currentlyAppliedFilters[itemIndex] = vals[keyName];
-            console.log(vals[keyName]);
-          }
-      }
-      else{
-         this.currentlyAppliedFilters.push({keyName:vals[keyName]});
-      }
-      this.revaluateShownResults();
-    },
-    revaluateShownResults(){
-
-    }
   },
   mounted() {
     this.fetchQuerryFromUrl();
@@ -118,12 +73,6 @@ export default {
     filteredArray:{
       get(){
         return this.results;
-      //   if(this.currentlyAppliedFilters.length<1){
-      //     return this.results;
-      //   }
-      //   return this.filteredResults.filter((val)=>{
-      //     return val.pickupBranch.vendor.name==="Interrent";
-      // });
       }
     }
   }

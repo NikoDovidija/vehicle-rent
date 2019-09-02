@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { mapGetters,mapActions } from 'vuex';
+import { mapGetters} from 'vuex';
 export default {
   data(){
     return {
@@ -36,11 +36,6 @@ export default {
       'getInitialCountry'
     ]),    
     
-  },
-  methods:{
-    // ...mapActions({
-    //   setCountry :'setSelectedCountry' 
-    // }),
   },
   watch:{ 
     selectedVal: function(value){

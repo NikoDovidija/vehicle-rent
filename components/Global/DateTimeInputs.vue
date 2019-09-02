@@ -20,7 +20,7 @@
 <script>
 import DatePicker from "./DatePicker";
 import { selectValues } from "../../constants/constants";
-import { mapGetters,mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 export default {
   components:{
     DatePicker
