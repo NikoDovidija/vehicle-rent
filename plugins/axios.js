@@ -1,16 +1,11 @@
 export default function ({ $axios, redirect }) {
+  $axios.setHeader('Accept-Currency', 'EUR')
+  $axios.setHeader('Accept-Language', 'en-GB')
 
-    $axios.setHeader('Accept-Currency', 'EUR');
-    $axios.setHeader('Accept-Language', 'en-GB');
-
-    $axios.onRequest(config => {
-        console.log('Making request to ' + config.url)
-    })
-
-    $axios.onError(error => {
-        const code = parseInt(error.response && error.response.status)
-        if (code === 400) {
-            redirect('/400')
-        }
-    })
+  $axios.onError((error) => {
+    const code = parseInt(error.response && error.response.status)
+    if (code === 400) {
+      redirect('/400')
+    }
+  })
 }

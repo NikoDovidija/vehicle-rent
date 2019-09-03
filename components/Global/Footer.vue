@@ -1,9 +1,9 @@
 <template>
-    <v-footer>
-        <div class="container pa-6">
-            <span>&copy; 2019</span>
-        </div>
-    </v-footer>
+  <v-footer>
+    <div class="container pa-6">
+      <span>&copy; 2019</span>
+    </div>
+  </v-footer>
 </template>
 
 <script>

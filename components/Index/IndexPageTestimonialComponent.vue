@@ -1,7 +1,7 @@
 <template>
-<div class="outer">
+  <div class="outer">
     <img class="d-none d-md-flex d-lg-flex" src="~assets/images/carim.png">
-</div>
+  </div>
 </template>
 
 <script>

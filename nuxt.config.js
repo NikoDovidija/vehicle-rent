@@ -1,5 +1,4 @@
 
-
 export default {
   mode: 'universal',
   /*
@@ -7,7 +6,7 @@ export default {
   */
   server: {
     port: 8000, // default: 3000
-    host: '0.0.0.0', // default: localhost
+    host: '0.0.0.0' // default: localhost
   },
   head: {
     titleTemplate: '%s - ' + process.env.npm_package_name,
@@ -35,26 +34,26 @@ export default {
   ** Plugins to load before mounting the App
   */
   vuetify: {
-    customVariables: ['~/assets/scss/variables/variables.scss']
+    customVariables: ['~/assets/scss/variables/_variables.scss']
   },
   plugins: [
-      '~/plugins/axios'
+    '~/plugins/axios'
   ],
   /*
   ** Nuxt.js dev-modules
   */
   buildModules: [
-    '@nuxtjs/vuetify',
+    '@nuxtjs/vuetify'
   ],
   /*
   ** Nuxt.js modules
   */
   modules: [
-    '@nuxtjs/axios',
+    '@nuxtjs/axios'
   ],
 
-  axios:{
-    baseURL:"https://api.vehicle-rent.com"
+  axios: {
+    baseURL: 'https://api.vehicle-rent.com'
   },
   /*
   /*

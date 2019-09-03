@@ -1,12 +1,12 @@
 <template>
-    <header>
-        smt smt
-    </header>
+  <header>
+    smt smt
+  </header>
 </template>
 
 <script>
 export default {
-   layout: 'header',
+  layout: 'header',
   data () {
     return {
     }

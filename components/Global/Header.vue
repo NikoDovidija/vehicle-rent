@@ -1,15 +1,15 @@
 <template>
   <header>
-    <AppBar/>
+    <AppBar />
   </header>
 </template>
 
 <script>
-import AppBar from "./AppBar";
+import AppBar from './AppBar'
 export default {
-    components:{
-      AppBar
-    }
+  components: {
+    AppBar
+  }
 }
 </script>
 <style lang="scss">

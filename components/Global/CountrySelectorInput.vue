@@ -1,45 +1,45 @@
 <template>
-<div class="d-flex align-center col-12 col-md-6">
-  <div>
-    <v-select
-          label="Country"
-          v-model="model"
-          :items="countryList"
-          flat
-          outlined
-          background-color="white"
-          rounded
-    ></v-select>
+  <div class="d-flex align-center col-12 col-md-6">
+    <div>
+      <v-select
+        v-model="model"
+        label="Country"
+        :items="countryList"
+        flat
+        outlined
+        background-color="white"
+        rounded
+      />
+    </div>
   </div>
-</div>
 </template>
 
 <script>
-import { mapGetters} from 'vuex';
+import { mapGetters } from 'vuex'
 export default {
-  data(){
+  data () {
     return {
-      selectedVal:''
+      selectedVal: ''
     }
   },
-  computed:{
-    model:{
-      get() {
-        return this.getInitialCountry;
+  computed: {
+    model: {
+      get () {
+        return this.getInitialCountry
       },
-      set(value){
-        this.selectedVal = value;
+      set (value) {
+        this.selectedVal = value
       }
     },
     ...mapGetters([
       'countryList',
       'getInitialCountry'
-    ]),    
-    
+    ])
+
   },
-  watch:{ 
-    selectedVal: function(value){
-      this.$store.dispatch('setSelectedCountry',value);
+  watch: {
+    selectedVal (value) {
+      this.$store.dispatch('setSelectedCountry', value)
     }
   }
 }

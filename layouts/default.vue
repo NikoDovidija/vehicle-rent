@@ -1,20 +1,20 @@
 <template>
   <v-app>
-    <Header/>
+    <Header />
     <v-content>
-        <nuxt />
+      <nuxt />
     </v-content>
-    <Footer/>
+    <Footer />
   </v-app>
 </template>
 
 <script>
-import Header from "../components/Global/Header";
-import Footer from "../components/Global/Footer";
+import Header from '../components/Global/Header'
+import Footer from '../components/Global/Footer'
 export default {
-   components: {
+  components: {
     Header,
-    Footer,
+    Footer
   }
 }
 </script>
